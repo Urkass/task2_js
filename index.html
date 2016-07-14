@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Dungeon of Doom</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <!-- Thanks for assets to Kenny at http://kenney.nl/assets/platformer-pack-redux -->
+    <div class="app container">
+        <div class="level level_0"><div class="door door_locked door_level_0"></div></div>
+        <div class="level level_1"><div class="door door_locked door_disabled door_level_1"></div></div>
+        <div class="level level_2"><div class="door door_locked door_disabled door_level_2"></div></div>
+        <div class="level level_3"><div class="box box_locked door door_disabled door_level_3"></div></div>
+        <div class="level level_4"></div>
+
+        <div class="popup popup_hidden popup_level_0">
+            <div class="popup__content popup__content_level_0" touch-action="none">
+                <div class="popup__close">╳</div>
+                <div class="door-riddle">
+                    <div class="door-riddle__button door-riddle__button_0"></div>
+                    <div class="door-riddle__button door-riddle__button_1"></div>
+                    <div class="door-riddle__button door-riddle__button_2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="popup popup_hidden popup_level_1" touch-action="none">
+            <div class="popup__content popup__content_level_1">
+                <!--<output class="popup__output">none</output>-->
+                <div class="popup__rules rules">
+                    <span class="rules__sentence">Запомни все стрелки за 5 секунд и повтори их направления свайпами. Всего 3 уровня.</span>
+                    <button class="rules__confirm">Уровень <span class="rules__number">1</span>. Поехали!</button>
+                </div>
+                <div class="popup__timer timer_hidden">5</div>
+                <div class="popup__sign sign_hidden sign"></div>
+                <div class="popup__close">╳</div>
+            </div>
+        </div>
+        <div class="popup popup_hidden popup_level_2" touch-action="none">
+            <div class="popup__content popup__content_level_2">
+                <div class="popup__rules rules">
+                    <span class="rules__sentence">Найди на картинке ВАЛЛИ. Картинку можно приближать и перемещать.</span>
+                    <button class="rules__confirm">Показывай картинку!</button>
+                </div>
+                <div class="popup__picture picture_hidden">
+                    <div class="popup__aim"></div>
+                </div>
+                <div class="popup__close">╳</div>
+            </div>
+        </div>
+        <div class="popup popup_hidden popup_level_3" touch-action="none">
+            <div class="popup__content popup__content_level_3">
+                <div class="popup__rules rules">
+                    <span class="rules__sentence">Когда начинались "Спокойной ночи"?</span>
+                    <button class="rules__confirm">Показать часы!</button>
+                </div>
+                <div class="popup__watches watches_hidden">
+                    <div class="popup__arrow"></div>
+                </div>
+                <div class="popup__close">╳</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
+    <script src="js/doorBase.js"></script>
+    <script src="js/doorOthers.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
