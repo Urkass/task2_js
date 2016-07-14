@@ -210,17 +210,15 @@ body {
     bottom: 0;
 }
 .popup__sign{
-    /*position: absolute;*/
     top: 35vh;
 }
 .sign{
     margin: 5px;
-    /*height: 30px;*/
     padding: 5px;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: stretch;
     align-items: flex-start;
     background-color: white;
@@ -277,18 +275,15 @@ body {
     color: #f44336;
     background-color: #e7e7e7;
 }
-.rules__sentence{
-
-}
+.rules__confirm:focus{
+     color: #f44336;
+     background-color: #e7e7e7;
+ }
 .popup__timer{
     text-align: center;
     font-size: 100px;
     color: white;
 }
-.timer{
-
-}
-
 .popup__picture{
     position: relative;
     display: block;
