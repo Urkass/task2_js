@@ -75,6 +75,12 @@ function Door1(number, onUnlock) {
     var indexOfCurrentArrows = 0;
     var scanSwipes = false;
     var timerValue = 5;
+    //для жестов
+    var start = {};
+    var end = {};
+    var tracking = false;
+    var thresholdTime = 500;
+    var thresholdDistance = 100;
 
     function createLevel(){
         rules.classList.add('hidden');
@@ -83,7 +89,7 @@ function Door1(number, onUnlock) {
         function showArrows(){
             clean();
             timerSign.classList.remove('hidden');
-            for (var i=0; i<((currentLevel+1)*levels); i++){
+            for (var i=0; i<(currentLevel+currentLevel+2); i++){
                 var arrow = getRandomArror();
                 currentArrows.push(arrow);
                 var newdiv = document.createElement('div');
@@ -118,36 +124,25 @@ function Door1(number, onUnlock) {
 
         }
     }
-
-    var start = {};
-    var end = {};
-    var tracking = false;
-    var thresholdTime = 500;
-    var thresholdDistance = 100;
     //var o = this.popup.querySelector('.popup__output');
     function gestureStart(e) {
-        //console.log(e);
-        //o.innerHTML = '';
         /* Только для первого пальца*/
         if (e.isPrimary) {
             tracking = true;
-            /* Hack - would normally use e.timeStamp but it's whack in Fx/Android */
             //start.t = new Date().getTime();
             start.t = e.timeStamp;
             start.x = e.clientX;
             start.y = e.clientY;
-            //console.log(start);
         } else {
             tracking = false;
         }
     }
+
     function gestureEnd(e) {
-        //console.log(e);
         if (tracking) {
             end.x = e.clientX;
             end.y = e.clientY;
         }
-        //console.log(end);
         tracking = false;
         var now = e.timeStamp;
         var deltaTime = now - start.t;
@@ -200,7 +195,8 @@ function Door1(number, onUnlock) {
             sentence.textContent = text;
             number.textContent = currentLevel+1;
         }
-    };
+    }
+
     this.popup.addEventListener('pointerdown', gestureStart.bind(this), false);
     this.popup.addEventListener('pointerup', gestureEnd.bind(this), false);
 
@@ -340,9 +336,7 @@ function Box(number, onUnlock) {
     // ==== Напишите свой код для открытия сундука здесь ====
 
     var arrow = this.popup.querySelector('.popup__arrow');
-    var fingers = [];
-    var cacheFingers = [];
-    var cacheMoveFingers = [];
+    var fingers = [], cacheFingers = [], cacheMoveFingers = [];
     var moveCache = {
         x: 0,
         y: 0
@@ -357,15 +351,11 @@ function Box(number, onUnlock) {
         scale: '',
         translate: ''
     };
-    var a;
-    var b;
-
-
+    var a, b;
     var confirmButton = this.popup.querySelector('.rules__confirm');
     var watches = this.popup.querySelector('.popup__watches');
     var rules = this.popup.querySelector('.popup__rules');
     confirmButton.addEventListener('click', init.bind(this));
-
 
     function init(){
         watches.classList.remove('hidden');
@@ -378,14 +368,12 @@ function Box(number, onUnlock) {
 
     function pointerdownHandler(e) {
         // запоминаем пальчики
-        //console.log('down '+ e);
         fingers.push(e);
         moveCache.event = e;
         flag = true;
     }
 
     function pointermoveHandler(e) {
-        //console.log('move '+ e);
         // Находим событие в кеше и обновляем его
         for (var i = 0; i < fingers.length; i++) {
             if (e.pointerId == fingers[i].pointerId) {
@@ -396,9 +384,9 @@ function Box(number, onUnlock) {
 
         // Если пальчика 2, то обрабатываем zoom/pinch
         if (fingers.length == 2) {
+            // немножко математики
             var curDiff={};
             var obj={};
-            var array=[];
             var difference = [
                 {
                     x:0,y:0
@@ -449,29 +437,20 @@ function Box(number, onUnlock) {
                     a=a+6.28319;
                 }
                 y = y + (b-a);
-                //console.log(y);
                 arrow.style.webkitTransform = arrow.style.transform  = 'rotate(' + y + 'rad)';
                 prevDiff = curDiff;
             }
-
-            //acos = acos + Math.acos((prevDiff.x*curDiff.x+prevDiff.y*curDiff.y)/(Math.sqrt(prevDiff.x*prevDiff.x+prevDiff.y*prevDiff.y)*Math.sqrt(curDiff.x*curDiff.x+curDiff.y*curDiff.y)));
-            //console.log(acos);
-            //arrow.style.webkitTransform = arrow.style.transform  = 'rotate(' + acos + 'rad)';
-
         } //если один пальчик, то обрабатываем перемещения
         else if (fingers.length == 1) {
             transform.translate = ' translate(' + (moveCache.x + fingers[0].clientX - moveCache.event.clientX) + 'px, '
                 + (moveCache.y + fingers[0].clientY - moveCache.event.clientY)  + 'px) ';
-            //picture.style.webkitTransform = picture.style.transform = transform.translate + transform.scale;
         }
     }
 
     function pointerupHandler(e) {
-        //console.log('move '+ e);
         if (fingers.length == 2) {
             cacheFingers = cacheMoveFingers;
         }
-        //console.log('up '+ e.pointerId);
         removeFinger(e);
         if (fingers.length < 2) {
             console.log(y);
@@ -494,7 +473,6 @@ function Box(number, onUnlock) {
             this.unlock();
         }
     }
-
 
     // ==== END Напишите свой код для открытия сундука здесь ====
 
