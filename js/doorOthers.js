@@ -39,7 +39,6 @@ function Door0(number, onUnlock) {
                 isOpened = false;
             }
         });
-        isOpened = true;
         // Если все три кнопки зажаты одновременно, то откроем эту дверь
         if (isOpened) {
             this.unlock();

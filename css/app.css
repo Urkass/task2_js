@@ -271,10 +271,15 @@ body {
     margin: 5px auto;
     cursor: pointer;
 }
+
 .rules__confirm:hover{
     color: #f44336;
     background-color: #e7e7e7;
 }
+.rules__confirm:focus{
+     color: #f44336;
+     background-color: #e7e7e7;
+ }
 .popup__timer{
     text-align: center;
     font-size: 100px;
